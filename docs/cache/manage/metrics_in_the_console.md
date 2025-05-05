@@ -31,7 +31,7 @@ This line graph represents the number of bytes transferred in or out of your Mom
 
 ## Errors and successes
 
-This graph tells you about the number of error and success responses from Momento for application requests to your caches. It can be viewed as a percentage or as a raw count of responses for the minute. If you are seeing an elevated level of errors, dig closer into your application logs to better understand the cause. Elevated error rates can be an indicator that your application requests are being throttled by Momento due to encountering a [service limit](/cache/limits).
+This graph tells you about the number of error and success responses from Momento for application requests to your caches. It can be viewed as a percentage or as a raw count of responses for the minute. If you are seeing an elevated level of errors, dig closer into your application logs to better understand the cause. Elevated error rates can be an indicator that your application requests are being throttled by Momento due to encountering a [service limit](/cache/manage/limits).
 
 ![image](/img/metrics_success-error.png)
 
@@ -41,17 +41,18 @@ This graph tells you how well your application is applying caching - you want to
 
 ![image](/img/metrics_hit-miss.png)
 
-### FAQ's
+## FAQ
 
 <details>
-<summary>How can I get metrics for more than an hour?</summary>
-For production, we recommend partnering with the Momento team for support - this includes publishing of detailed metrics into your observability tooling (presently CloudWatch but more options to come). With delivery of detailed metrics enabled, you can build alarms and dashboards in accordance with your operating standards.
+  <summary>How can I get metrics for more than an hour?</summary>
+
+  For production, we recommend partnering with the Momento team for support - this includes publishing of detailed metrics into your observability tooling (presently CloudWatch but more options to come). With delivery of detailed metrics enabled, you can build alarms and dashboards in accordance with your operating standards.
 </details>
 
 <details>
-<summary>Why are there no latency metrics provided?</summary>
-Momento can only measure latency associated with traffic internal to the service (between request routers and storage nodes) - a much better indicator for your application is to measure latency as experienced by the client. This tells much more about the overall latency story and the experience your users are receiving. You might also consider using a canary to test and report on latency as experienced by end users somewhere further away on the network.
-<br></br>
-<br></br>
-For customers receiving detailed metrics delivery to CloudWatch, a latency metric with percentiles is provided. This can be used in comparison with client-side latency and canary latency to quickly determine whether a user experience problem is related to your Momento cache or if you should look elsewhere for root cause and resolution.
+  <summary>Why are there no latency metrics provided?</summary>
+
+  Momento can only measure latency associated with traffic internal to the service (between request routers and storage nodes) - a much better indicator for your application is to measure latency as experienced by the client. This tells much more about the overall latency story and the experience your users are receiving. You might also consider using a canary to test and report on latency as experienced by end users somewhere further away on the network.
+
+  For customers receiving detailed metrics delivery to CloudWatch, a latency metric with percentiles is provided. This can be used in comparison with client-side latency and canary latency to quickly determine whether a user experience problem is related to your Momento cache or if you should look elsewhere for root cause and resolution.
 </details>

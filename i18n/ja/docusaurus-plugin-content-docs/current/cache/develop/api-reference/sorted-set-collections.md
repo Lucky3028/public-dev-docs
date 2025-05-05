@@ -6,8 +6,6 @@ description: Learn how to interact with the API for sorted set collection data t
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Sorted set collections
@@ -232,11 +230,12 @@ You can remove either one or a specific group of elements.
 
 指定されたソートされた集合の中で、要素はどの位置にあるか？が分かります。
 
-| Name            | Type            | Description                                   |
-| --------------- | --------------- | --------------------------------------------- |
-| cacheName       | String          | キャッシュの名前                            |
-| setName         | String          | 変更するソートセットコレクションの名前。    |
-| value           | String \| Bytes | スコアを取得する要素の値。 |
+| Name      | Type                              | Description                                                         |
+|-----------|-----------------------------------|---------------------------------------------------------------------|
+| cacheName | String                            | キャッシュの名前                                              |
+| setName   | String                            | 変更されるコレクションの名前                  |
+| value     | String \| Bytes                   | スコアを取得する要素の値                     |
+| order     | Optional[Ascending \| Descending] | ソートされた集合が順位を決定するためにソートされる順序 |
 
 <details>
   <summary>Method response object</summary>

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-sidebar_label: Momento Topics
+sidebar_label: Overview
 title: Topics
 pagination_prev: null
 description: Learn about Momento Topics, a high-speed, low-drag serverless pub/sub (publish/subscribe) messaging pattern for real-time application communication.
@@ -29,7 +29,7 @@ Momento Topics operates on a fire-and-forget messaging model, which means that o
 
 :::note
 
-As Momento Topics uses Momento Cache as its backend, you either use an existing cache or create a new cache in Momento Cache, then call the [Momento Topics publish and subscribe API](./develop/api-reference/index.md).
+As Momento Topics uses Momento Cache as its backend, you either use an existing cache or create a new cache in Momento Cache, then call the [Momento Topics publish and subscribe API](/topics/api-reference).
 
 :::
 
@@ -43,21 +43,21 @@ You can think of Topics almost like a managed WebSocket service that handles cha
 
 You can both publish and subscribe to Topics in a browser, or on iOS or Android devices using our front-end SDKs. When publishing data to a Topic, all subscribers will receive the data, meaning you can connect browsers together without building any server-side infrastructure!
 
-* [Momento Web SDK](/sdks/web/index.md) (for JavaScript browser apps)
-* [Momento Swift SDK](/sdks/swift/index.md) (for native iOS apps)
-* [Momento Kotlin SDK](/sdks/kotlin/index.md) (for native Android apps)
-* [Momento Dart SDK](/sdks/dart/index.md) (for Flutter apps)
+* [Momento Web SDK](/platform/sdks/web/index.md) (for JavaScript browser apps)
+* [Momento Swift SDK](/platform/sdks/swift/index.md) (for native iOS apps)
+* [Momento Kotlin SDK](/platform/sdks/kotlin/index.md) (for native Android apps)
+* [Momento Dart SDK](/platform/sdks/dart/index.md) (for Flutter apps)
 
 ### Connect from servers
 
 You can also publish and subscribe to Topics in your backend services. Here are SDKs that support server-side development:
 
-* [Momento Node.js SDK](/sdks/nodejs/index.md)
-* [Momento Go SDK](/sdks/go/index.md)
-* [Momento Java SDK](/sdks/java/index.md)
-* [Momento Kotlin SDK](/sdks/kotlin/index.md)
-* [Momento Python SDK](/sdks/python/index.md)
-* [Momento .NET SDK](/sdks/dotnet/index.md)
+* [Momento Node.js SDK](/platform/sdks/nodejs/index.md)
+* [Momento Go SDK](/platform/sdks/go/index.md)
+* [Momento Java SDK](/platform/sdks/java/index.md)
+* [Momento Kotlin SDK](/platform/sdks/kotlin/index.md)
+* [Momento Python SDK](/platform/sdks/python/index.md)
+* [Momento .NET SDK](/platform/sdks/dotnet/index.md)
 
 :::note
 
@@ -79,7 +79,7 @@ As a heads up, Momento Topics requires a stateful connection for subscribers, so
 
 ## API calls for Momento Topics
 
-See [API reference page for Topics](./develop/api-reference/index.md).
+See [API reference page for Topics](/topics/api-reference).
 
 ## Language support for Momento Topics
 Learn more about the SDKs available for different programming languages on our [Language Support Page](./develop/language-support/language-support.md).

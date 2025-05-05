@@ -6,8 +6,6 @@ description: Learn the core concepts for getting started with the Momento SDKs.
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Momento SDKを使用したアプリケーションの開発
@@ -34,6 +32,6 @@ Momentoクライアントをインスタンス化する際に、Momento APIキ�
 
 AWS Secrets Manager から認証情報を取得する例については、[Retrieving a Momento auth token from AWS Secrets Manager](/topics/integrations/aws-secrets-manager) を参照してください。
 
-Momento 認証に関する一般的な情報は、[認証のページ](./develop/authentication) を参照してください。
+Momento 認証に関する一般的な情報は、[認証のページ](/topics/develop/authentication) を参照してください。
 
-詳細については、[レスポンスオブジェクト](./develop/api-reference/response-objects)のページや、使用しているSDKのドキュメント(左ナビの `Develop`->`SDKs` の下)を参照してください。
+詳細については、[レスポンスオブジェクト](/topics/api-reference/response-objects)のページや、使用しているSDKのドキュメント(左ナビの `Develop`->`SDKs` の下)を参照してください。

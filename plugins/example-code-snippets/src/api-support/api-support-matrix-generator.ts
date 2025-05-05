@@ -67,7 +67,7 @@ const SDKS: Array<SdkInfo> = [
     cacheClientFile: 'src/momento/cache_client_async.py',
     configObjectFile: 'src/momento/config/configuration.py',
     topicClientFile: 'src/momento/topic_client_async.py',
-    authClientFile: undefined,
+    authClientFile: 'src/momento/auth_client_async.py',
     leaderboardClientFile: undefined,
     storageClientFile: undefined,
   },
@@ -90,7 +90,10 @@ const SDKS: Array<SdkInfo> = [
       'momento-sdk/src/main/java/momento/sdk/config/Configuration.java',
     topicClientFile: 'momento-sdk/src/main/java/momento/sdk/TopicClient.java',
     authClientFile: 'momento-sdk/src/main/java/momento/sdk/AuthClient.java',
-    leaderboardClientFile: undefined,
+    leaderboardClientFile: [
+      'momento-sdk/src/main/java/momento/sdk/ILeaderboard.java',
+      'momento-sdk/src/main/java/momento/sdk/LeaderboardClient.java',
+    ],
     storageClientFile:
       'momento-sdk/src/main/java/momento/sdk/PreviewStorageClient.java',
   },
@@ -126,12 +129,12 @@ const SDKS: Array<SdkInfo> = [
   },
   {
     sdk: Sdk.RUST,
-    cacheClientFile: 'sdk/src/cache/cache_client.rs',
-    configObjectFile: 'sdk/src/cache/config/configuration.rs',
-    topicClientFile: 'sdk/src/topics/topic_client.rs',
+    cacheClientFile: 'src/cache/cache_client.rs',
+    configObjectFile: 'src/cache/config/configuration.rs',
+    topicClientFile: 'src/topics/topic_client.rs',
     authClientFile: undefined,
     leaderboardClientFile: undefined,
-    storageClientFile: 'sdk/src/storage/preview_storage_client.rs',
+    storageClientFile: 'src/storage/preview_storage_client.rs',
   },
   {
     sdk: Sdk.RUBY,
@@ -220,6 +223,12 @@ const CACHE_API_GROUPS: Array<ApiGroup> = [
       'increment',
       'getBatch',
       'setBatch',
+      'getWithHash',
+      'setwithHash',
+      'setIfPresentAndHashEqual',
+      'setIfPresentAndHashNotEqual',
+      'setIfAbsentOrHashEqual',
+      'setIfAbsentOrHashNotEqual',
     ],
   },
   {
@@ -302,20 +311,6 @@ const TOPIC_API_GROUPS: Array<ApiGroup> = [
   },
 ];
 
-const WEBHOOK_API_GROUPS: Array<ApiGroup> = [
-  {
-    groupName: 'Webhook Management',
-    groupDescription: 'A matrix of SDK support for Momento Webhook APIs',
-    apis: [
-      'listWebhooks',
-      'putWebhook',
-      'deleteWebhook',
-      'getWebhookSecret',
-      'rotateWebhookSecret',
-    ],
-  },
-];
-
 const AUTH_API_GROUPS: Array<ApiGroup> = [
   {
     groupName: 'Auth',
@@ -334,6 +329,7 @@ const LEADERBOARD_API_GROUPS: Array<ApiGroup> = [
       'fetchByScore',
       'fetchByRank',
       'getRank',
+      'getCompetitionRank',
       'length',
       'removeElements',
       'delete',
@@ -393,7 +389,6 @@ export class ApiSupportMatrixGenerator {
     const allSdksConfigApiSupport = new Map<string, Map<string, boolean>>();
     const allSdksAuthApiSupport = new Map<string, Map<string, boolean>>();
     const allSdksTopicsApiSupport = new Map<string, Map<string, boolean>>();
-    const allSdksWebhooksApiSupport = new Map<string, Map<string, boolean>>();
     const allSdksLeaderboardApiSupport = new Map<
       string,
       Map<string, boolean>
@@ -431,13 +426,6 @@ export class ApiSupportMatrixGenerator {
       );
       allSdksTopicsApiSupport.set(sdkName, topicApiSupport);
 
-      const webhookApiSupport = determineApiSupport(
-        sdkRepoDir,
-        sdk.topicClientFile,
-        WEBHOOK_API_GROUPS
-      );
-      allSdksWebhooksApiSupport.set(sdkName, webhookApiSupport);
-
       const leaderboardApiSupport = determineApiSupport(
         sdkRepoDir,
         sdk.leaderboardClientFile,
@@ -452,9 +440,6 @@ export class ApiSupportMatrixGenerator {
     nodes.push(...renderApiGroups(AUTH_API_GROUPS, allSdksAuthApiSupport));
     nodes.push(...renderApiGroups(CONFIG_API_GROUPS, allSdksConfigApiSupport));
     nodes.push(...renderApiGroups(TOPIC_API_GROUPS, allSdksTopicsApiSupport));
-    nodes.push(
-      ...renderApiGroups(WEBHOOK_API_GROUPS, allSdksWebhooksApiSupport)
-    );
     nodes.push(
       ...renderApiGroups(LEADERBOARD_API_GROUPS, allSdksLeaderboardApiSupport)
     );
@@ -500,7 +485,6 @@ export class ApiSupportMatrixGenerator {
 
   generateTopicsMatrixNodes(): Array<Heading | Paragraph | Table> {
     const allSdksTopicsApiSupport = new Map<string, Map<string, boolean>>();
-    const allSdksWebhookApiSupport = new Map<string, Map<string, boolean>>();
     const allSdksAuthApiSupport = new Map<string, Map<string, boolean>>();
 
     for (const sdk of SDKS) {
@@ -514,13 +498,6 @@ export class ApiSupportMatrixGenerator {
       );
       allSdksTopicsApiSupport.set(sdkName, topicApiSupport);
 
-      const webhookApiSupport = determineApiSupport(
-        sdkRepoDir,
-        sdk.topicClientFile,
-        WEBHOOK_API_GROUPS
-      );
-      allSdksWebhookApiSupport.set(sdkName, webhookApiSupport);
-
       const authApiSupport = determineApiSupport(
         sdkRepoDir,
         sdk.authClientFile,
@@ -531,9 +508,6 @@ export class ApiSupportMatrixGenerator {
 
     const nodes: Array<Heading | Paragraph | Table> = [];
     nodes.push(...renderApiGroups(TOPIC_API_GROUPS, allSdksTopicsApiSupport));
-    nodes.push(
-      ...renderApiGroups(WEBHOOK_API_GROUPS, allSdksWebhookApiSupport)
-    );
     nodes.push(...renderApiGroups(AUTH_API_GROUPS, allSdksAuthApiSupport));
     return nodes;
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as stylex from '@stylexjs/stylex';
+import Link from '@docusaurus/Link';
 
 export type LinkCardProps = {
   title: string,
@@ -11,7 +12,7 @@ export type LinkCardProps = {
 };
 
 export const LinkCard: React.FC<LinkCardProps> = ({ title, description, link, icon, alignText = 'start', alignItems = 'start' }) => (
-    <a href={link} target="_blank" {...stylex.props(styles.card, styles.link, alignItems === 'center' && styles.alignItemsCenter)}>
+    <Link to={link} target="_blank" {...stylex.props(styles.card, styles.link, alignItems === 'center' && styles.alignItemsCenter)}>
       {icon && (
         <img src={icon} height="32px" width="32px" />
       )}
@@ -19,7 +20,7 @@ export const LinkCard: React.FC<LinkCardProps> = ({ title, description, link, ic
         <h3 {...stylex.props(styles.title)}>{title}</h3>
         <p {...stylex.props(styles.description)}>{description}</p>
       </div>
-    </a>
+    </Link>
   );
 export type LinkCard = typeof LinkCard;
 
@@ -30,7 +31,7 @@ const styles = stylex.create({
     width: '100%',
     minHeight: '2rem',
     padding: 16,
-    
+
     // content layout
     flexDirection: 'row',
     alignItems: 'start',
@@ -39,7 +40,7 @@ const styles = stylex.create({
     // border
     border: '1px solid #c9cdca',
     borderRadius: 4,
-    
+
     // hover
     transition: 'box-shadow 0.3s ease',
     boxShadow: {
@@ -64,8 +65,6 @@ const styles = stylex.create({
     marginTop: 0,
   },
   description: {
-    // color: '#929C95',
-    color: '#1C1E21',
     fontSize: 14,
     fontWeight: 400,
     marginBottom: 0,

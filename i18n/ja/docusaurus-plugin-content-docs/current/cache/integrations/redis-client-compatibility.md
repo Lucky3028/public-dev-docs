@@ -157,6 +157,55 @@ redis_client = MomentoRedis(
 サンプルコードを含むより詳細な情報については、[Momento Python Redis compatibility client](https://github.com/momentohq/momento-python-redis-client) をご覧ください。
 
 </TabItem>
+<TabItem value="lettuce" label="lettuce" default>
+
+```java
+import io.lettuce.core.api.reactive.RedisReactiveCommands;
+import java.time.Duration;
+import momento.lettuce.MomentoRedisReactiveClient;
+import momento.sdk.CacheClient;
+import momento.sdk.auth.CredentialProvider;
+import momento.sdk.config.Configurations;
+
+class CompatibilityExample {
+  public static void main(String[] args) {
+    // Use try-with-resources to ensure proper closing of CacheClient
+    try (CacheClient cacheClient = CacheClient.create(
+        CredentialProvider.fromEnvironmentVariable("MOMENTO_API_KEY"),
+        Configurations.Laptop.v1(),
+        Duration.ofSeconds(60)
+    )) {
+      // Create a Redis client backed by the Momento cache client
+      RedisReactiveCommands<String, String> redisClient =
+          MomentoRedisReactiveClient.create(cacheClient, "cache_name");
+    }
+  }
+}
+```
+</TabItem>
+<TabItem value="PhpRedis" label="PhpRedis" default>
+
+```php
+<?php
+declare(strict_types=1);
+
+use Momento\Auth\CredentialProvider;
+use Momento\Cache\CacheClient;
+use Momento\Cache\MomentoCacheClient;
+use Momento\Config\Configurations\Laptop;
+use Momento\Logging\StderrLoggerFactory;
+
+require "vendor/autoload.php";
+
+// Create a Momento cache client
+$authProvider = CredentialProvider::fromEnvironmentVariable("MOMENTO_API_KEY");
+$configuration = Laptop::latest(new StderrLoggerFactory());
+$client = new CacheClient($configuration, $authProvider, 60);
+
+// Create a Redis client backed by Momento cache client over the cache
+$momentoCacheClient = new MomentoCacheClient($client, "cache_name");
+```
+</TabItem>
 </Tabs>
 
 ## ソースコード
@@ -168,3 +217,5 @@ redis_client = MomentoRedis(
 * [StackExchange.Redis](https://github.com/momentohq/momento-dotnet-stackexchange-redis)
 * [go-redis](https://github.com/momentohq/momento-go-redis-client)
 * [redis-py](https://github.com/momentohq/momento-python-redis-client)
+* [lettuce](https://github.com/momentohq/momento-java-lettuce-client)
+* [php-redis](https://github.com/momentohq/momento-php-redis-client)

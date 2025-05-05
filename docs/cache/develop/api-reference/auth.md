@@ -6,8 +6,6 @@ description: Learn the Auth API calls you need to know about and how to use them
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Auth API reference
@@ -16,74 +14,145 @@ The auth APIs create and manage API keys and tokens for Momento services. These 
 
 <img src="/img/momento-auth-tokens.png" width="60%"/>
 
-## GenerateApiKey API
+## AuthClient Methods
 
-Generates a new Momento API key with the specified permissions and expiry.
+---
 
-| Name            | Type                      | Description                                                                                                                                                                             |
-| --------------- |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| scope           | [PermissionScope](#permissionscope-objects) | The permissions to grant to the new token. Pre-built PermissionScope objects are provided by the SDKs.                                                                                       |
-| expiresIn       | Number&nbsp;&nbsp;\|&nbsp;&nbsp;ExpiresIn&nbsp;object | The number of seconds until the token expires or an ExpiresIn object representing a duration by calling the `ExpiresIn.never()`, `ExpiresIn.minutes()`, or `ExpiresIn.hours()` methods. |
+<div class='row'>
 
-<details>
-  <summary>Method response object</summary>
+    <div class='col col--4' style={{paddingRight: '20px'}}>
 
-* Success
-  - `apiKey`: string - the new API key
-  - `refreshToken`: string - a refresh token that can be used with the [RefreshApiKey API](#refreshapikey-api) to refresh a token before it expires
-  - `endpoint`: string - the HTTP endpoint the Momento client should use when making requests
-  - `expiresAt`: Timestamp - the timestamp at which the token will expire
-* Error
+        ### GenerateApiKey
 
-See [response objects](./response-objects.md) for specific information.
+        Generates a new Momento auth token with the specified permissions and expiry.
 
-</details>
+        #### Parameters
+        ----------------
+        - **scope** - [*PermissionScope*](#permissionscope-objects): The permissions to grant to the new token. Pre-built PermissionScope objects are provided by the SDKs.
+        - **expiresIn** - *ExpiresIn object*: The number of seconds until the token expires or an ExpiresIn object representing a duration by calling the `ExpiresIn.never()`, `ExpiresIn.minutes()`, or `ExpiresIn.hours()` methods.
 
-:::note
+        #### Returns
+        ----------------
+        One of the following:
+        - **Success**:
+            - `authToken` - *String*: The new auth token.
+            - `refreshToken`- *String*: A refresh token that can be used with the [RefreshApiKey API](#refreshapikey) to refresh a token before it expires.
+            - `endpoint`- *String*: The HTTP endpoint the Momento client should use when making requests.
+            - `expiresAt`- *ExpiresAt object*: The timestamp at which the token will expire.
 
-Tokens to access the Momento control plane APIs can only be generated using the [Momento console](https://console.gomomento.com/).
+        - **Error**:
+            - See [response objects](./response-objects.md) for specific information.
 
-:::
+    </div>
 
-<SdkExampleTabs snippetId={'API_GenerateApiKey'} />
+    <div class='col col--8'>
 
-## RefreshApiKey API
+        <SdkExampleTabs snippetId={'API_GenerateApiKey'} />
 
-Refreshes an existing, unexpired Momento API key.  Produces a new API key with the same permissions and expiry duration as the original API key.
+    </div>
 
-| Name            | Type            | Description                                   |
-| --------------- | --------------- | --------------------------------------------- |
-| refreshToken    | String          | The refreshToken for the current API key, acquired from the original call to `GenerateApiKey`. |
+</div>
 
-<details>
-  <summary>Method response object</summary>
+---
 
-* Success
-  - `apiKey`: string - the new API key
-  - `refreshToken`: string - a refresh token that can be used with the [RefreshApiKey API](#refreshapikey-api) to refresh the token before it expires
-  - `endpoint`: string - the HTTP endpoint the Momento client should use when making requests
-  - `expiresAt`: Timestamp - the timestamp at which the token will expire
-* Error
+<div class='row'>
 
-See [response objects](./response-objects.md) for specific information.
+    <div class='col col--4' style={{paddingRight: '20px'}}>
 
-</details>
+        ### RefreshApiKey
 
-<SdkExampleTabs snippetId={'API_RefreshApiKey'} />
+        Refreshes an existing, unexpired Momento API key. Produces a new API key with the same permissions and expiry duration as the original API key.
+
+        #### Parameters
+        ----------------
+        - **refreshToken** - *String*: The refresh token that was provided when the original API key was generated.
+
+        #### Returns
+        ----------------
+        One of the following:
+        - **Success**:
+            - `apiKey`- *String*: The new auth token.
+            - `refreshToken`- *String*: A refresh token that can be used with the [RefreshApiKey API](#refreshapikey) to refresh a token before it expires.
+            - `endpoint`- *String*: The HTTP endpoint the Momento client should use when making requests.
+            - `expiresAt`- *ExpiresAt object*: The timestamp at which the token will expire.
+
+        - **Error**:
+            - See [response objects](./response-objects.md) for specific information.
+
+    </div>
+
+    <div class='col col--8'>
+
+        <SdkExampleTabs snippetId={'API_RefreshApiKey'} />
+
+    </div>
+
+</div>
+
+---
+
+<div class='row'>
+
+    <div class='col col--4' style={{paddingRight: '20px'}}>
+
+        ### GenerateDisposableToken
+
+        Generates a new disposable Momento auth token with the specified permissions and expiry.
+        Disposable tokens differ from the usual Momento auth token in several key ways:
+          - They cannot be generated in the console, they can only be generated programmatically. The token that's used for the `generateDisposableToken` API call must be a token with Super User scope generated via the Momento console.
+          - They must expire within one hour.
+          - They cannot be refreshed and thus do not come with a refresh token.
+          - Permissions are specified using DisposableTokenScope object.
+
+        #### Parameters
+        ----------------
+        - **scope** - [*DisposableTokenScope*](#disposabletokenscope-objects): The permissions to grant to the new disposable token. Pre-built DisposableTokenScope objects are provided by the SDKs.
+        - **expiresIn** - *ExpiresIn object*: The number of seconds until the token expires or an ExpiresIn object representing a duration by calling the ExpiresIn.minutes() or ExpiresIn.hours(1) methods. Disposable tokens must expire within 1 hour.
+
+        #### Optional Parameters
+        ----------------
+        - **tokenId** - *String*: A user-provided string that can help identify which messages were published with which disposable token.
+
+        #### Returns
+        ----------------
+        One of the following:
+        - **Success**:
+            - `authToken`- *String*: The new disposable auth token.
+            - `endpoint`- *String*: The HTTP endpoint the Momento client should use when making requests.
+            - `expiresAt`- *ExpiresAt object*: The timestamp at which the token will expire.
+
+        - **Error**:
+            - See [response objects](./response-objects.md) for specific information.
+
+      </div>
+
+      <div class='col col--8'>
+
+          <SdkExampleTabs snippetId={'API_GenerateDisposableToken'} />
+
+      </div>
+
+</div>
+
+---
 
 ## PermissionScope objects
+
+### PermissionScope
+
 | Name            | Type                                      | Description                                  |
 | --------------- |-------------------------------------------| -------------------------------------------- |
-| permissions           | List \<[Permission](#permission-objects)\> | The permissions to grant to the new token.|
+| permissions     | List \<[Permission](#permission-objects)\> | The permissions to grant to the new token.   |
 
-A PermissionScope is a list of [permission objects](#permission-objects). The list can have permissions that are of type [CachePermission](#cachepermission) or [TopicPermission](#topicpermission), and can contain [up to ten](../../limits) permission objects. A permission only grants access to the Momento data plane APIs (e.g. `get`, `set`, etc.). When an auth token is created with multiple permission objects, any matching permission will grant access. For example, if a single token is created with two permission objects:
+A PermissionScope is a list of [permission objects](#permission-objects). The list can have permissions that are of type [CachePermission](#cachepermission) or [TopicPermission](#topicpermission), and can contain [up to ten](/cache/manage/limits) permission objects. A permission only grants access to the Momento data plane APIs (e.g. `get`, `set`, etc.). When an auth token is created with multiple permission objects, any matching permission will grant access. For example, if a single token is created with two permission objects:
 
 1. A permission object that allows ReadWrite access to all caches for the account
 2. A permission object that allows ReadOnly access to cache `foo`
 
 In this case, the token will still allow use of data manipulation APIs (e.g. `set`, `delete`, `DictionarySetFields`, etc.) on cache `foo` because of the first permission.
 
-## Permission objects
+
+### Permission objects
 
 These objects define the specific role with cache or topic information and are then assigned to a [PermissionScope](#permissionscope-objects).
 
@@ -153,38 +222,9 @@ const TopicsPermissions = {
     ],
 };
 ```
+---
 
-## GenerateDisposableToken API
-
-Generates a new disposable Momento auth token with the specified permissions and expiry.
-
-Disposable tokens differ from the usual Momento auth token in several key ways:
-  - They cannot be generated in the console, they can only be generated programatically. The token that's used for the `generateDisposableToken` API call must be a token with Super User scope generated via the Momento console.
-  - They must expire within one hour.
-  - They cannot be refreshed and thus do not come with a refresh token.
-  - Permissions are specified using DisposableTokenScope object.
-
-| Name            | Type                      | Description                                                                                                                                                                             |
-| --------------- |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| scope           | [DisposableTokenScope](#disposabletokenscope-objects) | The permissions to grant to the new disposable token. Pre-built DisposableTokenScope objects are provided by the SDKs.                                                                                       |
-| expiresIn       | Number&nbsp;&nbsp;\|&nbsp;&nbsp;ExpiresIn&nbsp;object | The number of seconds until the token expires or an ExpiresIn object representing a duration by calling the `ExpiresIn.minutes()` or `ExpiresIn.hours(1)` methods. Disposable tokens must expire within 1 hour. |
-
-<details>
-  <summary>Method response object</summary>
-
-* Success
-  - `authToken`: string - the new disposable auth token
-  - `endpoint`: string - the HTTP endpoint the Momento client should use when making requests
-  - `expiresAt`: Timestamp - the timestamp at which the token will expire
-* Error
-
-See [response objects](./response-objects.md) for specific information.
-
-</details>
-
-<SdkExampleTabs snippetId={'API_GenerateDisposableToken'} />
-
-### DisposableTokenScope objects
+## DisposableTokenScope objects
 
 | Name            | Type                                      | Description                                  |
 | --------------- |-------------------------------------------| -------------------------------------------- |
@@ -216,54 +256,53 @@ This is an example of creating a DisposableTokenScope with all three types of pe
 
 ```javascript
 const exampleDisposableTokenPermission: DisposableTokenCachePermission = {
-  role: CacheRole.WriteOnly,
-  cache: "WriteCache",
-  item: {
-    keyPrefix: "WriteKey"
-  }
+    role: CacheRole.WriteOnly,
+    cache: "WriteCache",
+    item: {
+        keyPrefix: "WriteKey"
+    }
 };
 
 const exampleCachePermission: CachePermission = {
-  role: CacheRole.ReadOnly,
-  cache: "ReadCache"
+    role: CacheRole.ReadOnly,
+    cache: "ReadCache"
 };
 
 const exampleTopicPermission: TopicPermission = {
-  role: TopicRole.PublishSubscribe,
-  cache: "ReadWriteCache",
-  topic: "MyTopic"
+    role: TopicRole.PublishSubscribe,
+    cache: "ReadWriteCache",
+    topic: "MyTopic"
 }
 
 const exampleScope: DisposableTokenScope = {
     permissions: [
-      exampleDisposableTokenPermission,
-      exampleCachePermission,
-      exampleTopicPermission,
+        exampleDisposableTokenPermission,
+        exampleCachePermission,
+        exampleTopicPermission,
     ],
 };
 
 // Then pass in the entire DisposableTokenScope object when
 // you call generateDisposableToken
 const tokenResponse = await authClient.generateDisposableToken(
-  exampleScope,
-  ExpiresIn.minutes(30)
+    exampleScope,
+    ExpiresIn.minutes(30)
 );
 ```
+---
 
 ## FAQ
 
 <details>
-<summary>Can I create a custom role for a cache or topic permission?</summary>
+    <summary>Can I create a custom role for a cache or topic permission?</summary>
 
-No. We only support the managed roles listed above for each permission.
-
+    No. We only support the managed roles listed above for each permission.
 </details>
 
 <details>
-<summary>Do these tokens control access to the Momento control plane APIs?</summary>
+    <summary>Do these tokens control access to the Momento control plane APIs?</summary>
 
-Access tokens generated with the [GenerateApiKey](#generateapikey-api) API only control access to the Momento data plane APIs. A token for access to Momento's control plane APIs must be generated using the [Momento console](https://console.gomomento.com/).
-
+    Access tokens generated with the [GenerateApiKey](#generateapikey) API only control access to the Momento data plane APIs. A token for access to Momento's control plane APIs must be generated using the [Momento console](https://console.gomomento.com/).
 </details>
 
 :::tip

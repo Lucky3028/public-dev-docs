@@ -1,58 +1,38 @@
 ---
 sidebar_position: 11
 sidebar_label: Response objects
-title: Response object API リファレンス
-pagination_next: null
-description: Momento API におけるレスポンスオブジェクトとのやり取り方法を学びましょう。
+title: Response object API reference in Momento Topics
+description: Learn how to interact with the response object in the Momento API for Momento Topics.
 ---
 
-# Momento API からのレスポンスオブジェクト
+# Momento トピックの Momento API からの応答オブジェクト
 
-これらはすべてのコマンドの基本的なレスポンスです。一部のコマンドでは、追加のデータや機能が提供される場合もあります。
-
-コマンドは、*一般的*に2つのカテゴリに分類されます。以下のようなレスポンスを返すものがあります。
-1. **Success or Error** - 例えば、Set 操作はその一例です。キャッシュにアイテムが正常に書き込まれた場合とエラーが発生した場合の2つのレスポンスがあります。
-2. **Hit, Miss, or Error** - 例えば、Get 操作はその一例です。要求されたアイテムがキャッシュに存在する場合、キャッシュヒットとなります。キャッシュに存在しない場合はキャッシュミスとなります。エラーが発生した場合はエラーとなります。
+Momento レスポンスオブジェクトは親クラスから拡張され、`Success` や `Error` といった子型を持ち、パターンマッチによってアクセスできるように設計されている。(ある言語ではこの概念を「シールドクラス」と呼び、他の言語では「代数的データ型」と呼ぶ。ポリモーフィズムの一種である)。コードはレスポンスが `Success` か `Error` かをチェックし、それに応じて分岐する。この方法を使うと、型安全なレスポンスオブジェクトを得ることができ、それを使ってさらに情報を得ることができる。
+---
 
 ## Error
 
-例外の代わりに返されます。
+Momento Leaderboards サービスの呼び出しで発生したエラーは、例外のスローではなく、呼び出しの戻り値の一部として開発者に表示されます。これは、実行時にアプリケーションがクラッシュしないようにし、コードを書いているときにエラーをより見やすくし、気になるエラーを確実に処理するために IDE がより役立つようにします。このことに関する私たちの考え方については、なぜ[例外はバグ](https://www.gomomento.com/blog/exceptions-are-bugs)なのかというブログ記事をご覧ください！
 
-### Constructor
+### Available methods
 
-- innerException: Exception - エラーの原因となった例外
+- `message()`： 文字列 - 人間が読めるエラーメッセージ。
+- `innerException()`： Exception - 元の例外。
+- `errorCode()`： MomentoErrorCode - InvalidArgument や BadRequest などの Momento 独自のエラーカテゴリ。スタンダードとプラクティス-  エラーハンドリング](https://github.com/momentohq/standards-and-practices/blob/main/docs/client-specifications/error-handling.md) を参照。
+- `toString()`： 文字列 - message() のエイリアス。
 
-### Methods
-
-- message(): String - 読みやすいエラーメッセージ
-- innerException(): Exception - 元の例外
-- errorCode(): MomentoErrorCode - Momento 独自のエラーカテゴリ（例：InvalidArgument や BadRequest ）を指します。詳細は [Standards And Practices - Error Handling](https://github.com/momentohq/standards-and-practices/blob/main/docs/client-specifications/error-handling.md)を参照してください。
-- toString(): String - message() のエイリアスです。
+---
 
 ## Success
 
-コマンドは成功しました。
+追加のメソッドを持たない、リクエストの成功を示す汎用レスポンスオブジェクト。
 
-## Hit
+成功レスポンスオブジェクトのバリエーションは以下のとおりです：
 
-キーまたはフィールドはキャッシュに存在します。通常、値を返すように拡張されます。
+### Subscription
 
-## Miss
+Momento トピックの購読が成功したことを示します。言語によっては、コールバック関数または新しい購読項目をポーリングするために使用できるイテレータが提供されます。
 
-キーまたはフィールドはキャッシュに存在しません。
+使用可能なメソッドは以下のとおりです：
 
-## Set
-
-TTLコマンドに対して、更新が正常に適用されました。
-
-## NotSet
-
-TTL コマンドに対して、更新は適用されず、既存の TTL に変更はありませんでした。
-
-## Stored
-
-setIf* コマンドにおいて、キーが存在せず、値が設定されました。
-
-## NotStored
-
-setIf* コマンドにおいて、キーが存在し、値は設定されませんでした。
+- `unsubscribe()`: void - トピックの購読を終了します。

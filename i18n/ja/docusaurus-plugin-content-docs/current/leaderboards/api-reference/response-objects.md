@@ -17,29 +17,26 @@ Momento Leaderboards サービスの呼び出しで発生したエラーは、�
 
 ### 利用可能な方法
 
-- message()： 文字列 - 人間が読めるエラーメッセージ。
-- innerException()： 例外 - 元の例外の内容。
-- errorCode()： MomentoErrorCode - InvalidArgument や BadRequest などの Momento 独自のエラー。[Standards And Practices - Error Handling](https://github.com/momentohq/standards-and-practices/blob/main/docs/client-specifications/error-handling.md) を参照ください。
-- toString()： 文字列 - message() のエイリアス。
+- `message()`: 文字列 - 人間が読めるメッセージ
+- `innerException()`: 例外 - 元の例外の内容。
+- `errorCode()`: MomentoErrorCode -  InvalidArgument や BadRequest などの Momento 独自のエラー。[Standards And Practices - Error Handling](https://github.com/momentohq/standards-and-practices/blob/main/docs/client-specifications/error-handling.md)を参照ください。
+- `toString()`: 文字列 - message() のエイリアス。
 
 ---
 
 ## Success
 
-追加のメソッドを持たない、リクエストの成功を示す汎用レスポンスオブジェクト。成功レスポンスオブジェクトのバリエーションは以下のとおりです：
+追加のメソッドを持たない、リクエストの成功を示す汎用レスポンスオブジェクト。
+
+成功の・レスポンス・オブジェクトのバリエーションには次のようなものがあります：
 
 ### LeaderboardFetch
+フェッチ要求に成功したことを示します。利用可能なメソッドは以下の通り：
 
-fetch requestに成功したことを示します。
-
-#### Available methods
-
-- values()： リスト - `id`, `score`, `rank` フィールドを含むレコードのリストを返します。
+`values()`: リスト - フィールド `id`、`score`、`rank` を含むレコードのリストを返します。
 
 ### LeaderboardLength
 
-length requestに成功したことを示します。
+長さのリクエストに成功したことを示す。
 
-#### Available methods
-
-- length()： 整数 - 指定したリーダーボードの要素数を返します。
+- `length()`: Integer - returns the number of elements in the specified leaderboard

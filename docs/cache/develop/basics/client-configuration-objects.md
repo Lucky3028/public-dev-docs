@@ -7,8 +7,6 @@ pagination_prev: null
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # SDK Client configuration objects
@@ -41,7 +39,7 @@ Here are some of the pre-built configurations that you might be interested in.
 
 ### Browser
 
-`Configurations.Browser` is a configuration unique to our [web SDK](/sdks/web/index.md). It has relaxed timeout settings since latencies can be highly variable in individual users' browsers.
+`Configurations.Browser` is a configuration unique to our [web SDK](/platform/sdks/web/index.md). It has relaxed timeout settings since latencies can be highly variable in individual users' browsers.
 
 ### InRegion - Default
 

@@ -1,14 +1,12 @@
 ---
 sidebar_position: 20
-sidebar_label: SDK Error Handling
-title: SDK error handling
-description: Discover how to handle errors when using the Momento SDK.
+sidebar_label: SDK エラー処理
+title: SDK エラー処理
+description: Momento SDK を使用する際のエラーの処理方法を説明しています。
 pagination_next: null
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # SDKエラー処理
@@ -43,6 +41,6 @@ Momento SDK は、あらかじめ用意された設定オブジェクトを使�
 
 <img src="/img/sdk_retry_behavior.png" width="100%" alt="logic diagram depicting SDK retry behavior"/>
 
-Momento SDKは、スロット付きリクエスト([制限超過](../../limits/))を再試行しません。その他のエラーについては、要求された操作が [idempotent](https://en.wikipedia.org/wiki/Idempotence) でない場合、SDK は再試行しません。例えば、カウンターをインクリメントしているときにエラー応答を受け取った場合、SDKはあなたの代わりにリトライを行いません（これはオーバーカウントになる可能性があるため）。べきでない操作の場合、リトライするかどうかは開発者に選択させた方が安全です。
+Momento SDKは、スロット付きリクエスト([制限超過](/cache/manage/limits)))を再試行しません。その他のエラーについては、要求された操作が [idempotent](https://en.wikipedia.org/wiki/Idempotence) でない場合、SDK は再試行しません。例えば、カウンターをインクリメントしているときにエラー応答を受け取った場合、SDKはあなたの代わりにリトライを行いません（これはオーバーカウントになる可能性があるため）。べきでない操作の場合、リトライするかどうかは開発者に選択させた方が安全です。
 
 

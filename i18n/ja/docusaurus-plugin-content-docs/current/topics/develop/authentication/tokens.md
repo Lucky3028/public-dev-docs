@@ -6,8 +6,6 @@ description: Momentoトークンとは何か、トークンの作成方法、ト
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Momento tokens
@@ -33,7 +31,7 @@ Momento トークンは、*データプレーン*にのみアクセスできま�
 
 <SdkExampleTabs snippetId={'API_GenerateApiKey'} />
 
-トークン作成の詳細については、[APIリファレンスページ](../api-reference/auth.md)を参照してください。
+トークン作成の詳細については、[APIリファレンスページ](/topics/api-reference/auth)を参照してください。
 
 ## 有効期限
 

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-sidebar_label: Momento Topics
+sidebar_label: Overview
 title: Momento Topics とは?
 pagination_prev: null
 description: リアルタイムなアプリケーション通信のための、最高に洗練されたサーバーレスのパブ/サブ (パブリッシュ/サブスクライブ) メッセージパターンである Momento Topics について学びましょう。
@@ -20,7 +20,7 @@ Momento Topics は"Fire-and-forget (発火したら忘れる)"メッセージモ
 
 :::note
 
-Momento Topics は Momento Cache をバックエンドとして使うので、既存のキャッシュを使うか、新しいキャッシュを Momento Cache に作成してから、[Momento Topics のパブリッシュやサブスクライブ API](./develop/api-reference/index.md)を呼び出すことができます。
+Momento Topics は Momento Cache をバックエンドとして使うので、既存のキャッシュを使うか、新しいキャッシュを Momento Cache に作成してから、[Momento Topics のパブリッシュやサブスクライブ API](/topics/api-reference)を呼び出すことができます。
 
 :::
 
@@ -32,12 +32,24 @@ Momento Topics は Momento Cache をバックエンドとして使うので、�
 
 ### ブラウザから接続
 
-[Web SDK](/sdks/web/index.md)を使用すると、ブラウザでTopicのパブリッシュとサブスクライブの両方を行うことができます。Topic にデータを公開すると、すべてのサブスクライバーがそのデータを受信します。つまり、サーバー側のコードを作成することなく、ブラウザ同士で接続できます。
+[Web SDK](/platform/sdks/web)を使用すると、ブラウザでTopicのパブリッシュとサブスクライブの両方を行うことができます。Topic にデータを公開すると、すべてのサブスクライバーがそのデータを受信します。つまり、サーバー側のコードを作成することなく、ブラウザ同士で接続できます。
+
+* [Momento Web SDK](/platform/sdks/web/index.md) (for JavaScript browser apps)
+* [Momento Swift SDK](/platform/sdks/swift/index.md) (for native iOS apps)
+* [Momento Kotlin SDK](/platform/sdks/kotlin/index.md) (for native Android apps)
+* [Momento Dart SDK](/platform/sdks/dart/index.md) (for Flutter apps)
 
 ### サーバから接続
 
-また、バックエンドのサービスでTopicsをパブリッシュしたりサブスクライブしたりすることもできます。データの送受信には、[Node.js](/sdks/nodejs/index.md)、[Python](/sdks/python/index.md)、または[Go](/sdks/go/index.md) SDKを使用できます。その他のSDKのサポートは近日公開予定です。
+また、バックエンド・サービスでトピックを公開したり購読したりすることもできます。サーバーサイド開発をサポートするSDKはこちらです：
 
+* [Momento Node.js SDK](/platform/sdks/nodejs/index.md)
+* [Momento Go SDK](/platform/sdks/go/index.md)
+* [Momento Java SDK](/platform/sdks/java/index.md)
+* [Momento Kotlin SDK](/platform/sdks/kotlin/index.md)
+* [Momento Python SDK](/platform/sdks/python/index.md)
+* [Momento .NET SDK](/platform/sdks/dotnet/index.md)
+*
 :::note
 
 注意点として、Momento Topicsはサブスクライバにステートフルな接続を要求するため、LambdaやCloudflare Workerのようなサーバレスファンクションには最適ではありません。しかし、データをパブリッシュするだけであれば、完全にステートレスなので、サーバレスファンクションでも動作します。
@@ -59,10 +71,10 @@ Momento Topics は Momento Cache をバックエンドとして使うので、�
 
 ## Momento TopicsのAPI呼び出し
 
-[API reference page for Topics](./develop/api-reference/index.md)をご参照ください。
+[API reference page for Topics](/topics/api-reference)をご参照ください。
 
 ## Momento Topicsの言語サポート
-[言語サポートページ](./develop/language-support/language-support.md)で、さまざまなプログラミング言語で利用可能なSDKの詳細をご覧ください。
+[言語サポートページ](/topics/develop/language-support)で、さまざまなプログラミング言語で利用可能なSDKの詳細をご覧ください。
 
 ## デモ
 

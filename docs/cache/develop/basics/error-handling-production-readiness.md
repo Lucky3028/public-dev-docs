@@ -7,8 +7,6 @@ pagination_next: null
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # SDK Error Handling
@@ -43,4 +41,4 @@ The general pattern of behavior you can expect from Momento SDKs when it comes t
 
 <img src="/img/sdk_retry_behavior.png" width="100%" alt="logic diagram depicting SDK retry behavior"/>
 
-Momento SDKs do not retry throttled requests ([limits exceeded](../../limits/)). For other errors, the SDK will not retry if the operation requested is not [idempotent](https://en.wikipedia.org/wiki/Idempotence). For example, if you are incrementing a counter and receive an error response, the SDK will not retry on your behalf (because this could result in over-counting). In the case of non-idempotent operations, it is safer to let the developer choose whether to retry.
+Momento SDKs do not retry throttled requests ([limits exceeded](/cache/manage/limits)). For other errors, the SDK will not retry if the operation requested is not [idempotent](https://en.wikipedia.org/wiki/Idempotence). For example, if you are incrementing a counter and receive an error response, the SDK will not retry on your behalf (because this could result in over-counting). In the case of non-idempotent operations, it is safer to let the developer choose whether to retry.

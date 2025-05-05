@@ -6,8 +6,6 @@ description: Learn the core concepts for getting started with the Momento SDKs.
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Developing applications with Momento SDKs
@@ -34,4 +32,4 @@ If you're storing your Momento auth token in a secret manager such as [AWS Secre
 
 For an example of how to retrieve credentials from AWS Secrets Manager, see [Retrieving a Momento auth token from AWS Secrets Manager](/cache/integrations/aws-secrets-manager).
 
-For more information, see our [API Reference](./develop/api-reference) page, and the docs for the specific [SDK](/sdks) that you are using.
+For more information, see our [API Reference](./develop/api-reference) page, and the docs for the specific [SDK](/platform/sdks) that you are using.

@@ -1,14 +1,12 @@
 ---
 sidebar_position: 10
-sidebar_label: SDK Configuration Objects
-title: SDK configuration objects
-description: Discover how to use configuration objects to initialize the Momento SDK client.
+sidebar_label: SDK クライエント Configuration オブジェクト
+title: SDK クライエント Configuration オブジェクト
+description: Confugiration オブジェクトを使用して Momento SDK クライエントをイニシャライズする方法を説明しています。
 pagination_prev: null
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # SDKクライアントConfigurationオブジェクト
@@ -41,7 +39,7 @@ import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 ### Browser
 
-`Configurations.Browser`は[web SDK](/sdks/web/index.md)独自の設定です。個々のユーザーのブラウザでレイテンシが大きく変動する可能性があるため、タイムアウトの設定が緩和されています。
+`Configurations.Browser`は[web SDK](/platform/sdks/web/index.md)独自の設定です。個々のユーザーのブラウザでレイテンシが大きく変動する可能性があるため、タイムアウトの設定が緩和されています。
 
 ### InRegion - Default
 

@@ -6,8 +6,6 @@ description: Learn how to interact with the API for sorted set collection data t
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Sorted set collections
@@ -232,11 +230,13 @@ See [response objects](./response-objects.md) for specific information.
 
 What position is the element, in the specified sorted set?
 
-| Name            | Type            | Description                                   |
-| --------------- | --------------- | --------------------------------------------- |
-| cacheName       | String          | Name of the cache.                            |
-| setName         | String          | Name of the sorted set collection to be altered.    |
-| value           | String \| Bytes | Value of the element to retrieve the score of. |
+| Name      | Type                              | Description                                                         |
+|-----------|-----------------------------------|---------------------------------------------------------------------|
+| cacheName | String                            | Name of the cache.                                                  |
+| setName   | String                            | Name of the sorted set collection to be altered.                    |
+| value     | String \| Bytes                   | Value of the element to retrieve the score of.                      |
+| order     | Optional[Ascending \| Descending] | The order in which sorted set will be sorted to determine the rank. |
+
 
 <details>
   <summary>Method response object</summary>

@@ -59,7 +59,7 @@ Service quotas are directly affected by the support plan on your account. Both <
       <td colspan="3">7 days</td>
     </tr>
     <tr>
-      <td>Item size</td>
+      <td>Item size[^1]</td>
       <td>item</td>
       <td colspan="3">50 MB</td>
     </tr>
@@ -75,6 +75,7 @@ Service quotas are directly affected by the support plan on your account. Both <
     </tr>
   </tbody>
 </table>
+[^1]: Item size includes both cache key and cache value.
 
 ## Operations
 
@@ -82,7 +83,7 @@ Certain cache APIs can perform multiple operations in a single request. Multi-el
 
 As an example, an `Upsert` request adding one or two elements costs *one operation*, but with three or four elements it costs *two operations*, and so on. All the APIs listed below perform multiple operations and are subject to reduced cost. All unlisted APIs cost one operation.
 
-<table class="customTable">
+<table className="customTable">
   <thead>
     <tr>
       <th>API Name</th>

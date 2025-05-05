@@ -6,8 +6,6 @@ description: Learn how to retrieve your Momento API Key in AWS Secrets Manager.
 ---
 
 import { SdkExampleTabs } from "@site/src/components/SdkExampleTabs";
-// This import is necessary even though it looks like it's un-used; The inject-example-code-snippet
-// plugin will transform instances of SdkExampleTabs to SdkExampleTabsImpl
 import { SdkExampleTabsImpl } from "@site/src/components/SdkExampleTabsImpl";
 
 # Retrieving a Momento API Key from AWS Secrets Manager
@@ -34,5 +32,6 @@ When inserting the Momento API key into AWS Secrets Manager, it should be as pla
 
 <details>
   <summary>Do I have to do this?</summary>
-No. You can store your Momento auth token in an environment variable or a file, but that is not best practice as it is not as secure as storing it in something like AWS Secrets Manager.
+
+  No. You can store your Momento auth token in an environment variable or a file, but that is not best practice as it is not as secure as storing it in something like AWS Secrets Manager.
 </details>
